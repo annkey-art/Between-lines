@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+p<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
@@ -104,17 +104,7 @@
     <div id="jokeFooter" class="footer">dxbly.com</div>
 
     <div class="actions">
-      <button class="action-btn" onclick="showJoke(const reactions = [
-  "…yeah that’s too real.",
-  "I shouldn’t laugh at this.",
-  "That hit a bit.",
-  "Someone will be offended.",
-  "This explains a lot.",
-  "We don’t talk about this enough."
-];
-
-const randomReaction = reactions[Math.floor(Math.random() * reactions.length)];
-document.getElementById("reaction").innerText = randomReaction;)">Give me trouble</button>
+      <button class="action-btn" onclick="showJoke()">Give me trouble</button>
       <button class="share-btn" onclick="shareWhatsApp()">Share on WhatsApp</button>
       <button class="share-btn" onclick="shareEmail()">Share by Email</button>
     </div>
@@ -200,6 +190,17 @@ document.getElementById("reaction").innerText = randomReaction;)">Give me troubl
 
     updateActiveButton();
     document.getElementById("jokeFooter").innerText = footers[currentCategory];
+  const reactions = [
+  "…yeah that’s too real.",
+  "I shouldn’t laugh at this.",
+  "That hit a bit.",
+  "Someone will be offended.",
+  "This explains a lot.",
+  "We don’t talk about this enough."
+];
+
+const randomReaction = reactions[Math.floor(Math.random() * reactions.length)];
+document.getElementById("reaction").innerText = randomReaction;
     showJoke();
   </script>
 
