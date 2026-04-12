@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Between Lines</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #111;
+      color: #eee;
+      margin: 0;
+      padding: 40px 20px;
+      text-align: center;
+    }
+
+    h1 {
+      margin-bottom: 10px;
+      font-weight: 300;
+    }
+
+    p.subtitle {
+      color: #aaa;
+      margin-bottom: 30px;
+    }
+
+    .categories {
+      margin-bottom: 25px;
+    }
+
+    .categories button,
+    .action-btn,
+    .share-btn {
+      margin: 8px;
+      padding: 12px 18px;
+      border: none;
+      border-radius: 8px;
+      background: #222;
+      color: #eee;
+      cursor: pointer;
+      font-size: 15px;
+    }
+
+    .categories button:hover,
+    .action-btn:hover,
+    .share-btn:hover {
+      background: #444;
+    }
+
+    .categories button.active {
+      background: #8c6b3f;
+      color: white;
+    }
+
+    .card {
+      max-width: 700px;
+      margin: 30px auto 0;
+      background: #1a1a1a;
+      border: 1px solid #2f2f2f;
+      border-radius: 12px;
+      padding: 24px;
+      text-align: left;
+    }
+
+    .joke-text {
+      font-size: 20px;
+      line-height: 1.6;
+      margin-bottom: 20px;
+    }
+
+    .footer {
+      color: #c9a86b;
+      font-size: 14px;
+      margin-top: 20px;
+    }
+
+    .actions {
+      margin-top: 25px;
+      text-align: center;
+    }
+
+    .flower {
+      position: fixed;
+      bottom: 10px;
+      right: 10px;
+      font-size: 28px;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Between Lines</h1>
+  <p class="subtitle">Some things are funny. Some things are true.</p>
+
+  <div class="categories">
+    <button id="corporateBtn" onclick="selectCategory('corporate')">Corporate</button>
+    <button id="relationshipBtn" onclick="selectCategory('relationship')">Relationship</button>
+  </div>
+
+  <div class="card">
+    <div id="jokeText" class="joke-text">Choose a category and click “Show me a joke”.</div>
+    <div id="jokeFooter" class="footer">dxbly.com</div>
+
+    <div class="actions">
+      <button class="action-btn" onclick="showJoke()">Show me a joke</button>
+      <button class="share-btn" onclick="shareWhatsApp()">Share on WhatsApp</button>
+      <button class="share-btn" onclick="shareEmail()">Share by Email</button>
+    </div>
+  </div>
+
+  <div class="flower">🌸🌿🌸</div>
+
+  <script>
+    let currentCategory = "corporate";
+    let currentJoke = "";
+
+    const jokes = {
+      corporate: [
+        "My manager said we need more synergy. I said I also need more money. We are both still waiting.",
+        "We had a meeting about improving productivity. It lasted two hours.",
+        "Corporate life is just professional panic with better lighting.",
+        "My boss asked for initiative. I took initiative and mentally resigned."
+      ],
+      relationship: [
+        "I said 'I'm listening'. Apparently saying it and doing it are two different skills.",
+        "Relationships are easy. You just have to remember what was said, what was meant, and what was definitely not forgotten.",
+        "I bought flowers today. Not because I made a mistake. Just because I enjoy peaceful evenings.",
+        "Love is asking 'are you upset?' and hearing 'no' in seventeen different emotional accents."
+      ]
+    };
+
+    const footers = {
+      corporate: "dxbly.com • corporate survival department",
+      relationship: "dxbly.com • read what’s between the lines"
+    };
+
+    function updateActiveButton() {
+      document.getElementById("corporateBtn").classList.remove("active");
+      document.getElementById("relationshipBtn").classList.remove("active");
+
+      if (currentCategory === "corporate") {
+        document.getElementById("corporateBtn").classList.add("active");
+      }
+
+      if (currentCategory === "relationship") {
+        document.getElementById("relationshipBtn").classList.add("active");
+      }
+    }
+
+    function selectCategory(category) {
+      currentCategory = category;
+      updateActiveButton();
+      document.getElementById("jokeText").innerText = "Now click “Show me a joke”.";
+      document.getElementById("jokeFooter").innerText = footers[currentCategory];
+    }
+
+    function showJoke() {
+      const categoryJokes = jokes[currentCategory];
+      const randomIndex = Math.floor(Math.random() * categoryJokes.length);
+      currentJoke = categoryJokes[randomIndex];
+
+      document.getElementById("jokeText").innerText = currentJoke;
+      document.getElementById("jokeFooter").innerText = footers[currentCategory];
+    }
+
+    function shareWhatsApp() {
+      if (!currentJoke) {
+        alert("First generate a joke.");
+        return;
+      }
+
+      const text = currentJoke + " — " + footers[currentCategory] + " https://annkey-art.github.io/between-lines/";
+      const url = "https://wa.me/?text=" + encodeURIComponent(text);
+      window.open(url, "_blank");
+    }
+
+    function shareEmail() {
+      if (!currentJoke) {
+        alert("First generate a joke.");
+        return;
+      }
+
+      const subject = "Between Lines";
+      const body = currentJoke + "\n\n" + footers[currentCategory] + "\n\nhttps://annkey-art.github.io/between-lines/";
+      const url = "mailto:?subject=" + encodeURIComponent(subject) + "&body=" + encodeURIComponent(body);
+      window.location.href = url;
+    }
+
+    updateActiveButton();
+    document.getElementById("jokeFooter").innerText = footers[currentCategory];
+  </script>
+
+</body>
+</html>
