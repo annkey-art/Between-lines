@@ -100,10 +100,21 @@
 
   <div class="card">
     <div id="jokeText" class="joke-text">Choose a category. Trouble will be provided.</div>
+    <div id="reaction" style="margin-top:10px; color:#aaa; font-size:14px;"></div>
     <div id="jokeFooter" class="footer">dxbly.com</div>
 
     <div class="actions">
-      <button class="action-btn" onclick="showJoke()">Give me trouble</button>
+      <button class="action-btn" onclick="showJoke(const reactions = [
+  "…yeah that’s too real.",
+  "I shouldn’t laugh at this.",
+  "That hit a bit.",
+  "Someone will be offended.",
+  "This explains a lot.",
+  "We don’t talk about this enough."
+];
+
+const randomReaction = reactions[Math.floor(Math.random() * reactions.length)];
+document.getElementById("reaction").innerText = randomReaction;)">Give me trouble</button>
       <button class="share-btn" onclick="shareWhatsApp()">Share on WhatsApp</button>
       <button class="share-btn" onclick="shareEmail()">Share by Email</button>
     </div>
