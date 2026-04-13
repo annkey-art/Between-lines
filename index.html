@@ -116,7 +116,11 @@
 
     <img id="jokeImage" class="joke-image" src="" alt="Joke image" style="display:none;">
 
-    <img id="footerImage" class="footer-image" src="" alt="Footer image" style="display:none;">
+    <div id="jokeFooter" class="footer">
+  <a id="footerLink" href="#" target="_blank">
+    <img id="footerImage" src="" style="width:100%; border-radius:8px; margin-top:15px;">
+  </a>
+    </div>
 
     <div class="actions">
       <button class="action-btn" onclick="showJoke()">Give me trouble</button>
@@ -154,13 +158,21 @@
       ]
     };
 
-    const footers = {
-      corporate: "footers/corporate-footer.jpg",
-      relationship: "footers/relationship-footer.jpg",
-      family: "footers/family-footer.jpg",
-      self: "footers/self-footer.jpg",
-      daily: "footers/daily-footer.jpg"
-    };
+    const footerImages = {
+  corporate: "footers/corporate-footer.jpg",
+  relationship: "footers/relationship-footer.jpg",
+  family: "footers/family-footer.jpg",
+  self: "footers/self-footer.jpg",
+  daily: "footers/daily-footer.jpg"
+};
+
+const footerLinks = {
+  corporate: "https://dxbly.com",
+  relationship: "https://alefinterior.ae",
+  family: "https://yourlink.com",
+  self: "https://yourlink.com",
+  daily: "https://yourlink.com"
+};
 
     function updateActiveButton() {
       document.getElementById("corporateBtn").classList.remove("active");
@@ -187,6 +199,8 @@
     }
 
     function selectCategory(category) {
+      document.getElementById("footerImage").src = footerImages[currentCategory];
+document.getElementById("footerLink").href = footerLinks[currentCategory];
       currentCategory = category;
       updateActiveButton();
 
@@ -196,7 +210,9 @@
       currentJokeImage = "";
     }
 
-    function showJoke() {
+    function showJoke()
+    document.getElementById("footerImage").src = footerImages[currentCategory];
+document.getElementById("footerLink").href = footerLinks[currentCategory];{
       const categoryJokes = jokes[currentCategory];
 
       if (!categoryJokes || categoryJokes.length === 0) {
