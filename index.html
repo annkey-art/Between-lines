@@ -63,26 +63,30 @@
       text-align: left;
     }
 
-    .joke-image {
-      width: 100%;
-      border-radius: 10px;
-      margin-bottom: 15px;
-      display: block;
-      background: #163138;
-    }
-
-    .footer-image {
-      width: 100%;
-      max-width: 260px;
-      border-radius: 8px;
-      margin-top: 18px;
-      display: block;
-    }
-
     .helper-text {
       font-size: 18px;
       line-height: 1.6;
       margin-bottom: 20px;
+      color: #ddd;
+    }
+
+    .joke-image {
+      width: 100%;
+      border-radius: 10px;
+      margin-bottom: 15px;
+      display: none;
+      background: #163138;
+    }
+
+    .footer {
+      margin-top: 18px;
+    }
+
+    .footer img {
+      width: 100%;
+      max-width: 260px;
+      border-radius: 8px;
+      display: none;
     }
 
     .actions {
@@ -114,12 +118,12 @@
   <div class="card">
     <div id="helperText" class="helper-text">Choose a category. Trouble will be provided.</div>
 
-    <img id="jokeImage" class="joke-image" src="" alt="Joke image" style="display:none;">
+    <img id="jokeImage" class="joke-image" src="" alt="Joke image">
 
     <div id="jokeFooter" class="footer">
-  <a id="footerLink" href="#" target="_blank">
-    <img id="footerImage" src="" style="width:100%; border-radius:8px; margin-top:15px;">
-  </a>
+      <a id="footerLink" href="#" target="_blank">
+        <img id="footerImage" src="" alt="Footer image">
+      </a>
     </div>
 
     <div class="actions">
@@ -159,20 +163,20 @@
     };
 
     const footerImages = {
-  corporate: "footers/corporate-footer.jpg",
-  relationship: "footers/relationship-footer.jpg",
-  family: "footers/family-footer.jpg",
-  self: "footers/self-footer.jpg",
-  daily: "footers/daily-footer.jpg"
-};
+      corporate: "footers/corporate-footer.jpg",
+      relationship: "footers/relationship-footer.jpg",
+      family: "footers/family-footer.jpg",
+      self: "footers/self-footer.jpg",
+      daily: "footers/daily-footer.jpg"
+    };
 
-const footerLinks = {
-  corporate: "https://dxbly.com",
-  relationship: "https://alefinterior.ae",
-  family: "https://yourlink.com",
-  self: "https://yourlink.com",
-  daily: "https://yourlink.com"
-};
+    const footerLinks = {
+      corporate: "https://dxbly.com",
+      relationship: "https://dxbly.com",
+      family: "https://dxbly.com",
+      self: "https://dxbly.com",
+      daily: "https://dxbly.com"
+    };
 
     function updateActiveButton() {
       document.getElementById("corporateBtn").classList.remove("active");
@@ -198,27 +202,31 @@ const footerLinks = {
       }
     }
 
+    function updateFooter() {
+      const footerImage = document.getElementById("footerImage");
+      const footerLink = document.getElementById("footerLink");
+
+      footerImage.src = footerImages[currentCategory];
+      footerImage.style.display = "block";
+      footerLink.href = footerLinks[currentCategory];
+    }
+
     function selectCategory(category) {
-      document.getElementById("footerImage").src = footerImages[currentCategory];
-document.getElementById("footerLink").href = footerLinks[currentCategory];
       currentCategory = category;
       updateActiveButton();
+      updateFooter();
 
       document.getElementById("helperText").innerText = "Good choice. Now click “Give me trouble”.";
       document.getElementById("jokeImage").style.display = "none";
-      document.getElementById("footerImage").style.display = "none";
       currentJokeImage = "";
     }
 
-    function showJoke()
-    document.getElementById("footerImage").src = footerImages[currentCategory];
-document.getElementById("footerLink").href = footerLinks[currentCategory];{
+    function showJoke() {
       const categoryJokes = jokes[currentCategory];
 
       if (!categoryJokes || categoryJokes.length === 0) {
         document.getElementById("helperText").innerText = "No jokes here yet. Add one when the mood is right.";
         document.getElementById("jokeImage").style.display = "none";
-        document.getElementById("footerImage").style.display = "none";
         return;
       }
 
@@ -229,8 +237,7 @@ document.getElementById("footerLink").href = footerLinks[currentCategory];{
       document.getElementById("jokeImage").src = currentJokeImage;
       document.getElementById("jokeImage").style.display = "block";
 
-      document.getElementById("footerImage").src = footers[currentCategory];
-      document.getElementById("footerImage").style.display = "block";
+      updateFooter();
     }
 
     function shareWhatsApp() {
@@ -259,6 +266,7 @@ document.getElementById("footerLink").href = footerLinks[currentCategory];{
     }
 
     updateActiveButton();
+    updateFooter();
   </script>
 
 </body>
